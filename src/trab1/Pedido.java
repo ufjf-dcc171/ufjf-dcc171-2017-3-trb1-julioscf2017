@@ -1,20 +1,41 @@
 package trab1;
 
-class Pedido {
-    private String sabor;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Pedido(String sabor) {
-        this.sabor = sabor;
+public class Pedido {
+    private String numeroMesa;
+    private List<Item> itens;
+
+    public Pedido(String numeroMesa) {
+        this.numeroMesa = numeroMesa;
+        this.itens = new ArrayList<>();
     }
 
-    public String getSabor() {
-        return sabor;
+    public Pedido() {
+        this(null);
     }
 
-    public void setSabor(String sabor) {
-        this.sabor = sabor;
+    public String getNumeroMesa() {
+        return numeroMesa;
     }
-    
+
+    public void setNumeroMesa(String numeroMesa) {
+        this.numeroMesa = numeroMesa;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
+    }
+
+    @Override
+    public String toString() {
+        return "Mesa = " + numeroMesa;
+    }
     
     
 }

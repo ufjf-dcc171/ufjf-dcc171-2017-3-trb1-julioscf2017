@@ -24,4 +24,9 @@ class Item {
     public void setQtde(String qtde) {
         this.qtde = qtde;
     }   
-}
+
+    @Override
+    public String toString() {
+        return "Sabor = " + sabor + ", Quantidade = " + qtde;
+    }
+    }
