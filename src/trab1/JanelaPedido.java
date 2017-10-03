@@ -1,29 +1,38 @@
 package trab1;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 
 class JanelaPedido extends JFrame{
+    private final Mesa novaMesa;
     private final JComboBox <String> saborPizza;
     private final JLabel infQtdPizzas = new JLabel("Informar quantidade: ");
     private final JTextField qtdPizzas = new JTextField(3);
-    private final JButton confirmar = new JButton("Confirmar Sabor");
+    private final JButton incluir = new JButton("Incluir no Pedido");
     private final JButton cancelar = new JButton("Cancelar Pedido");
     private final JButton finalizar = new JButton("Finalizar Pedido");
+    private final JList<Item> novoPedido = new JList<>(new DefaultListModel<>());
 
     public JanelaPedido() throws HeadlessException {
         super("Novo Pedidos");
+        this.novaMesa = new Mesa();
+        setSize(600, 450);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        add(new JScrollPane(novoPedido), BorderLayout.WEST);
         setLayout(new FlowLayout(FlowLayout.RIGHT));
-        
         
         String [] pizzas = {"Muçarela","Calabresa","Presunto","Marguerita","Palmito","Pepperone","Napolitana"};
         saborPizza = new JComboBox<>(pizzas);
@@ -31,61 +40,43 @@ class JanelaPedido extends JFrame{
         add(infQtdPizzas);
         add(qtdPizzas);
         
-        
-        add(confirmar);
+        add(incluir);
         add(cancelar);
         add(finalizar);
-        confirmar.addActionListener(new cliqueConfirmarSabor());
+        
+        incluir.addActionListener(new cliqueIncluirSabor());
         cancelar.addActionListener(new cliqueCancelarPedido());
         finalizar.addActionListener(new cliqueFinalizarPedido());
     }
 
-    void realizarPedido() {
-        
-    }
-
-    void solicitaNovoPedido(String mesa) {
-        String saborEscolhido;
-        setLayout(new FlowLayout(FlowLayout.RIGHT));
-        setSize(600, 450);
-        setResizable(false);
-        setLocationRelativeTo(null);
+    void solicitaNovoPedido(String numeroMesa) {
+        this.novaMesa.setNumeroMesa(numeroMesa);
         setVisible(true);
-        saborEscolhido = (String) saborPizza.getSelectedItem();
+        qtdPizzas.setText("");
     }
-
     
-    
-    
-    
-    
-    private class cliqueConfirmarSabor implements ActionListener {
+    private class cliqueIncluirSabor implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            String sabor = (String) saborPizza.getSelectedItem();
-            String quantidade = qtdPizzas.getText();
+            if(!qtdPizzas.getText().isEmpty()){
+                Item p;
+                p = new Item((String) saborPizza.getSelectedItem(),qtdPizzas.getText());
+                //novoPedido.get
+                //novaMesa.getItens().add(p);
+                
+                qtdPizzas.setText("");
+            }            
         }
     }
-        
     
-    
-    
-    
-    
-    private static class cliqueCancelarPedido implements ActionListener {
+    private class cliqueCancelarPedido implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            setVisible(false);
         }
     }
-    
-    
-    
-    
-    
-    
     
     private class cliqueFinalizarPedido implements ActionListener {
 
@@ -94,7 +85,4 @@ class JanelaPedido extends JFrame{
             setVisible(false);
         }
     }
-    
-
-    
 }

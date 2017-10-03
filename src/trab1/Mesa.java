@@ -1,13 +1,19 @@
 package trab1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mesa {
     private String numeroMesa;
-    private List<Pedido> pedidos;
+    private List<Item> itens;
 
     public Mesa(String numeroMesa) {
         this.numeroMesa = numeroMesa;
+        this.itens = new ArrayList<>();
+    }
+
+    public Mesa() {
+        this(null);
     }
 
     public String getNumeroMesa() {
@@ -18,12 +24,12 @@ public class Mesa {
         this.numeroMesa = numeroMesa;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
+    public List<Item> getItens() {
+        return itens;
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
     }
     
 }
